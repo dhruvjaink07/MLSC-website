@@ -41,6 +41,12 @@ body {
     color: #02a2ff;
 }
 
+.detailsTitle {
+    margin-top: 10px;
+    color: #02a2ff;
+    font-weight: 600;
+}
+
 .projectGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -77,6 +83,11 @@ body {
 
 .projectName,
 .projectCategory {
+    margin-top: 10px;
+    color: #ffffff;
+}
+
+.infoMessage {
     margin-top: 10px;
     color: #ffffff;
 }

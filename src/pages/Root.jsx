@@ -11,7 +11,7 @@ const Root = () => {
     const preloader = document.getElementById("preloader");
     const ctnPreloader = document.getElementById("ctn-preloader");
 
-    let removeTimeout;
+    let removeTimeout = null;
     const loadTimeout = setTimeout(() => {
       if (ctnPreloader) {
         ctnPreloader.classList.add("loaded");
@@ -33,7 +33,9 @@ const Root = () => {
 
     return () => {
       clearTimeout(loadTimeout);
-      clearTimeout(removeTimeout);
+      if (removeTimeout) {
+        clearTimeout(removeTimeout);
+      }
     };
   }, []);
 
