@@ -11,17 +11,30 @@ const Root = () => {
     const preloader = document.getElementById("preloader");
     const ctnPreloader = document.getElementById("ctn-preloader");
 
-    setTimeout(() => {
-      ctnPreloader.classList.add("loaded");
+    let removeTimeout;
+    const loadTimeout = setTimeout(() => {
+      if (ctnPreloader) {
+        ctnPreloader.classList.add("loaded");
+      }
       document.body.classList.remove("no-scroll-y");
 
-      if (ctnPreloader.classList.contains("loaded")) {
-        setTimeout(() => {
-          preloader.parentNode.removeChild(preloader);
+      if (ctnPreloader?.classList.contains("loaded")) {
+        removeTimeout = setTimeout(() => {
+          if (preloader?.parentNode) {
+            preloader.parentNode.removeChild(preloader);
+          }
           setLoading(false);
         }, 1000);
+        return;
       }
+
+      setLoading(false);
     }, 4000);
+
+    return () => {
+      clearTimeout(loadTimeout);
+      clearTimeout(removeTimeout);
+    };
   }, []);
 
   return (

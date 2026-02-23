@@ -22,12 +22,14 @@ const ProjectDetails = () => {
       <div className={styles.projectGrid}>
         <div className={styles.projectTile}>
           <img src={project.imgSrc} alt={project.name} className={styles.projectImg} />
+          <p className={styles.projectName}>Project Details</p>
           <p className={styles.projectCategory}>{project.category}</p>
           {project.websiteUrl && (
             <a href={project.websiteUrl} target="_blank" rel="noopener noreferrer">
               Visit website
             </a>
           )}
+          {!project.websiteUrl && <p className={styles.projectCategory}>Website link will be updated soon.</p>}
           <Link to="/projects">Back to projects</Link>
         </div>
       </div>
