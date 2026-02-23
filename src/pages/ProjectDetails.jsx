@@ -1,20 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import projectData from "../utils/projectData.json";
+import { getAllProjects } from "../utils/projectUtils";
 import styles from "./Projects.module.css";
-
-const projects = [
-  ...projectData.webDev.map((project, index) => ({ ...project, id: `webDev-${index}` })),
-  ...projectData.aiMl.map((project, index) => ({ ...project, id: `aiMl-${index}` })),
-  ...projectData.app.map((project, index) => ({ ...project, id: `app-${index}` })),
-];
-
-const projectLinks = {
-  "webDev-0": "https://mlsc-vcet-official.web.app/",
-  "webDev-2": "https://mlsccoherence.web.app/",
-};
 
 const ProjectDetails = () => {
   const { id } = useParams();
+  const projects = getAllProjects();
   const project = projects.find((item) => item.id === id);
 
   if (!project) {
@@ -33,8 +23,8 @@ const ProjectDetails = () => {
         <div className={styles.projectTile}>
           <img src={project.imgSrc} alt={project.name} className={styles.projectImg} />
           <p className={styles.projectCategory}>{project.category}</p>
-          {projectLinks[project.id] && (
-            <a href={projectLinks[project.id]} target="_blank" rel="noreferrer">
+          {project.websiteUrl && (
+            <a href={project.websiteUrl} target="_blank" rel="noopener noreferrer">
               Visit website
             </a>
           )}

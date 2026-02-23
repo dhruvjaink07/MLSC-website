@@ -1,9 +1,9 @@
 import styles from './Projects.module.css';
 import { Link } from "react-router-dom";
-import projectData from "../utils/projectData.json";
+import { getProjectsByCategory } from "../utils/projectUtils";
 
-const renderTopTile = (project) => (
-  <Link to={`/projects/${project.id}`} className={styles.projectTileLink} key={project.id}>
+const renderTopTile = (project, key) => (
+  <Link to={`/projects/${project.id}`} className={styles.projectTileLink} key={key}>
     <div className={`${styles.projectTile} ${styles.topdetails}`}>
       <img src={project.imgSrc} alt={project.name} className={styles.projectImg} />
       <p className={styles.projectName}>{project.name}</p>
@@ -13,9 +13,10 @@ const renderTopTile = (project) => (
 );
 
 const Projects = () => {
-  const webDevProjects = projectData.webDev.slice(0, 4).map((project, index) => ({ ...project, id: `webDev-${index}` }));
-  const aiMlProjects = projectData.aiMl.slice(0, 3).map((project, index) => ({ ...project, id: `aiMl-${index}` }));
-  const appProjects = projectData.app.slice(0, 2).map((project, index) => ({ ...project, id: `app-${index}` }));
+  const { webDev, aiMl, app } = getProjectsByCategory();
+  const webDevProjects = webDev.slice(0, 4);
+  const aiMlProjects = aiMl.slice(0, 3);
+  const appProjects = app.slice(0, 2);
 
   return (
     <div className={styles.projects_section}>
@@ -24,21 +25,21 @@ const Projects = () => {
       <div className={styles.projectCategorySection}>
         <p className={styles.categoryTitle}>Web Development Projects</p>
         <div className={styles.projectGrid}>
-          {webDevProjects.map((project) => renderTopTile(project))}
+          {webDevProjects.map((project) => renderTopTile(project, project.id))}
         </div>
       </div>
 
       <div className={styles.projectCategorySection}>
         <p className={styles.categoryTitle}>AI/ML Projects</p>
         <div className={styles.projectGrid}>
-          {aiMlProjects.map((project) => renderTopTile(project))}
+          {aiMlProjects.map((project) => renderTopTile(project, project.id))}
         </div>
       </div>
 
       <div className={styles.projectCategorySection}>
         <p className={styles.categoryTitle}>App Development Projects</p>
         <div className={styles.projectGrid}>
-          {appProjects.map((project) => renderTopTile(project))}
+          {appProjects.map((project) => renderTopTile(project, project.id))}
         </div>
       </div>
     </div>
