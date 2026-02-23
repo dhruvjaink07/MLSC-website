@@ -1,18 +1,21 @@
 import styles from './Projects.module.css';
+import { Link } from "react-router-dom";
 import projectData from "../utils/projectData.json";
 
 const renderTopTile = (project) => (
-  <div className={`${styles.projectTile} ${styles.topdetails}`} key={project.name}>
-    <img src={project.imgSrc} alt={project.name} className={styles.projectImg} />
-    <p className={styles.projectName}>{project.name}</p>
-    <p className={styles.projectCategory}>{project.category}</p>
-  </div>
+  <Link to={`/projects/${project.id}`} className={styles.projectTileLink} key={project.id}>
+    <div className={`${styles.projectTile} ${styles.topdetails}`}>
+      <img src={project.imgSrc} alt={project.name} className={styles.projectImg} />
+      <p className={styles.projectName}>{project.name}</p>
+      <p className={styles.projectCategory}>{project.category}</p>
+    </div>
+  </Link>
 );
 
 const Projects = () => {
-  const webDevProjects = projectData.webDev.slice(0, 4);
-  const aiMlProjects = projectData.aiMl.slice(0, 3);
-  const appProjects = projectData.app.slice(0, 2);
+  const webDevProjects = projectData.webDev.slice(0, 4).map((project, index) => ({ ...project, id: `webDev-${index}` }));
+  const aiMlProjects = projectData.aiMl.slice(0, 3).map((project, index) => ({ ...project, id: `aiMl-${index}` }));
+  const appProjects = projectData.app.slice(0, 2).map((project, index) => ({ ...project, id: `app-${index}` }));
 
   return (
     <div className={styles.projects_section}>

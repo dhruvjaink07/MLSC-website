@@ -61,6 +61,10 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
+.projectTileLink {
+    text-decoration: none;
+}
+
 .projectTile:hover {
     background-color: rgba(125, 122, 122, 0.486);
     transform: perspective(1000px) rotateX(-10deg) translateY(-10px);
